@@ -26,6 +26,10 @@ impl Counter {
         self.0.store(new, Ordering::SeqCst);
         new
     }
+
+    fn get(&self) -> isize {
+        self.0.load(Ordering::SeqCst)
+    }
 }
 
 fn main() {
@@ -50,7 +54,7 @@ fn main() {
 
         // Header
         let header = gtk::HeaderBar::new();
-        let label = Label::new(Some("Starting at 0"));
+        let label = Label::new(Some(&format!("Starting at {}", counter.get())));
 
         // Content
         let inc_btn = Button::new_with_label("Increment");
