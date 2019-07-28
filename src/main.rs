@@ -28,7 +28,19 @@ fn main() {
 
         // Content
         let inc_btn = Button::new_with_label("Increment");
+        {
+            let label_clone = label.clone();
+            inc_btn.connect_clicked(move |_| {
+                label_clone.set_label("Incremented");
+            });
+        }
         let dec_btn = Button::new_with_label("Decrement");
+        {
+            let label_clone = label.clone();
+            dec_btn.connect_clicked(move |_| {
+                label_clone.set_label("Decremented");
+            });
+        }
 
         // Compose piece together
         header.add(&label);
