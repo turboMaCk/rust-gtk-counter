@@ -16,15 +16,13 @@ impl Counter {
     }
 
     fn increment(&self) -> isize {
-        let new = self.0.load(Ordering::SeqCst) + 1;
-        self.0.store(new, Ordering::SeqCst);
-        new
+        let old = self.0.fetch_add(1, Ordering::SeqCst);
+        old + 1
     }
 
     fn decrement(&self) -> isize {
-        let new = self.0.load(Ordering::SeqCst) - 1;
-        self.0.store(new, Ordering::SeqCst);
-        new
+        let old = self.0.fetch_sub(1, Ordering::SeqCst);
+        old - 1
     }
 
     fn get(&self) -> isize {
